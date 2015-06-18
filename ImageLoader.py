@@ -10,4 +10,4 @@ class Image:
         self.fluorescence_image = None
 
     def compute_phase_mask(self):
-        pass__author__ = 'Bruno'
+        pass
