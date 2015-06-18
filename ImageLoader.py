@@ -1,4 +1,4 @@
-import numpy as np
+# module used to store the images and the different masks
 
 class Image:
     # class used to store the phase and fluorescence images and the different masks needed
