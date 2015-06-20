@@ -1,0 +1,260 @@
+html,body {
+font-family:verdana,sans-serif;
+margin-top:0px;
+overflow:auto;
+}
+a {
+ color:maroon;
+ text-decoration:none;
+}
+a:hover {
+ text-decoration:underline;
+ }
+p {
+  font-size:85%;
+  margin-bottom:0.5em;
+  margin-left:1.5em;
+  margin-right:0.5em;
+  margin-top:0.5em;
+  }
+  
+span.gray {
+  color:gray;
+  }
+  
+span.green {
+  color:green;
+  }  
+
+span.gray {
+  color:gray;
+  }  
+
+  
+span.greenback {
+  color:white;
+  background-color: green;
+  }
+
+span.red {
+  color:red;
+  }
+ 
+span.right {
+  text-align:right;
+  }
+  
+p.pre{
+ white-space:pre-wrap;
+}
+
+div.boxless{
+	padding: 15px;
+	margin: 1 auto;	
+	border-left: none
+}
+  
+div.box{
+	padding: 15px;
+	margin: 1 auto;
+	border: 1px solid red
+}
+
+h1 { 
+  display: inline-block;
+  font-size: 130%;
+  font-weight:bold;
+  text-align: left;  
+  color: #770000;
+  margin:1%;
+  margin-left:0.5em;
+  margin-bottom:0.5em;
+  }
+ 
+h2 { 
+  display: inline-block;	
+  font-size: 100%;
+  font-weight:bold;
+  text-align: left;    
+  color: #770000;
+  margin-left:1em;
+  margin-bottom:0.5em;
+  margin-top:0.8em;
+  }
+h3 {
+  font-size: 85%;
+  font-weight:bold;
+  text-align: left;    
+  color: #000000;
+  margin-left:1.5em;
+  margin-bottom:0.0em;
+  margin-top:1.3em;}
+
+ h4 { font-family: Arial,Helvetica,sans-serif;
+  font-size: 100%;
+  font-weight:bold;
+  text-align: left;
+  padding-top:2%;
+  padding-bottom:0%;    
+  color: black;
+  text-transform: none;}
+
+ table {
+  width:98%;
+  margin-left:auto; margin-right:auto;
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  border-collapse: separate; 
+  background-color: #ffffff; 
+  text-align: center;
+  text-transform: none;	
+  }
+table th{
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  background-color: #bfd0f0; 
+}
+table td{
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+}
+
+  
+ table.pending {
+  width:98%;
+  margin-left:auto; margin-right:auto;
+  border-style: none; 
+  border-collapse: separate; 
+  background-color: #ffffff; 
+  text-align: center;
+  text-transform: none;	
+  table-layout: fixed;
+  }
+table.pending th {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  background-color: lightgray;
+}
+
+table.pending td {
+  border-style: none; 
+  text-align: left;  
+  text-indent: -4.0em;
+  padding-left: 4.0em;
+  vertical-align: text-top;
+  }
+
+table.pending tr td:nth-child(odd){ 
+  background: #FFFFe1;
+}
+table.pending tr td:nth-child(even){
+  background: #FFFFc3;
+}
+
+
+table.pending tr {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: none; 
+  border-color: #0000FF;
+}
+
+
+ table.calendar {
+  width:98%;
+  margin-left:auto; margin-right:auto;
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  border-collapse: separate; 
+  background-color: #ffffff; 
+  text-align: center;
+  text-transform: none;	
+  }
+table.calendar th {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+}
+
+table.calendar td {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  text-transform: none;	}
+
+table.calendar td.left {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  text-align: left
+}
+
+table.calendar td.green{
+  background-color: #D0FFD0;
+  color: black;  
+}
+
+table.calendar td.blue{
+  background-color: #E0E0FF;
+  color: black; 
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #808080;
+  text-align: left  
+}
+
+table.calendar tr {
+  border-width: 1px;
+  border-spacing: 2px;
+  border-style: outset; 
+  border-color: #0000FF;
+}
+
+table.calendar th {
+  background-color: gray;
+}
+
+
+ul.navbar {
+ float:left;
+ width:20%;
+ }
+dl {padding-left: 5%;  padding-right: 5%;}
+
+dl.aviso dd {  font-family: Arial,Helvetica,sans-serif;  
+  font-style: italic;  
+  padding-left: 2%;
+  padding-right: 2%;}
+
+dl.aviso dt {  font-family: Arial,Helvetica,sans-serif; 
+  font-weight:bold;}
+
+dl.grande dt { font-size:120%;}
+
+dl dt {  font-family: Arial,Helvetica,sans-serif;
+  font-weight: bold; 
+  list-style-type: none;
+  padding-top: 2%;}
+
+dl dd {  font-family: Arial,Helvetica,sans-serif; 
+  list-style-type: none;}
+
+textarea {
+  white-space: pre;
+  word-wrap: normal;
+  overflow-x: scroll;
+}
