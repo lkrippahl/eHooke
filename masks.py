@@ -6,7 +6,7 @@ from skimage import exposure, color, morphology, filters
 import numpy as np
 from scipy import ndimage
 
-from Parameters import Parameters  # remove after testing
+from params import Parameters  # remove after testing
 
 
 class Image:
