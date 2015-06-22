@@ -1,4 +1,4 @@
-# Module used to store the parameters used in the different phases of the software
+"""Module used to store the parameters used in the different phases of the software"""
 
 import numpy as np
 

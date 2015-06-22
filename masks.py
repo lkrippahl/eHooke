@@ -1,4 +1,4 @@
-# Module used to store the images and the different masks
+"""Module used to store the images and the different masks"""
 
 from skimage.io import imsave, imread
 from skimage.util import img_as_float
@@ -10,7 +10,7 @@ from params import Parameters  # remove after testing
 
 
 class Image:
-    # Class used to store the phase and fluorescence images and the different masks needed
+    """Class used to store the phase and fluorescence images and the different masks needed"""
 
     def __init__(self, parameters):
 
@@ -31,13 +31,13 @@ class Image:
         self.cells = []
 
     def set_clip(self, margin):
-        # sets the clipping region to the image minus the margin on each side
+        """sets the clipping region to the image minus the margin on each side"""
 
         lx, ly = self.phase_image.shape
         self.clip = (margin, margin, lx-margin, ly-margin)
 
     def load_phase(self, filename):
-        # loads phase image and converts it grayscale as float
+        """loads phase image and converts it to grayscale as float"""
 
         self.phase_image = img_as_float(imread(filename))
         self.phase_image = exposure.rescale_intensity(self.phase_image)  # rescales the intensity of the phase image
@@ -49,7 +49,7 @@ class Image:
         self.set_clip(self.imageloaderparams.phase_border)
 
     def load_fluorescence(self, filename):
-        # loads the fluorescence image and converts it if == RGB
+        """loads the fluorescence image and converts it if == RGB"""
 
         fluor_image = imread(filename)
 
@@ -79,8 +79,8 @@ class Image:
         imsave(filename, image_to_save)
 
     def compute_base_mask(self):
-        # creates the base mask for the phase image without hole filling or closing
-        # background is white, cells are black
+        """creates the base mask for the phase image without hole filling or closing
+        background is white, cells are black"""
 
         x1, y1, x2, y2 = self.clip
         base_mask = np.copy(self.phase_image[x1:x2, y1:y2])
@@ -97,8 +97,8 @@ class Image:
         self.base_mask = base_mask
 
     def compute_phase_mask(self):
-        # computes the phase_mask using the base mask
-        # computes the edges using the clipping region and the parameters
+        """computes the phase_mask using the base mask
+        computes the edges using the clipping region and the parameters"""
 
         self.compute_base_mask()
         phase_mask = self.base_mask

@@ -1,4 +1,4 @@
-# Module used to process the images: region labeling, cell finding and cell stats computing
+"""Module used to process the images: region labeling, cell finding and cell stats computing"""
 
 class Cell:
 
