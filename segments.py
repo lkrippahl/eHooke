@@ -1,23 +1,14 @@
-"""Module used to process the images: region labeling, cell finding and cell stats computing"""
+"""Module used to find and process the regions of the image"""
 
-class Cell:
+class Region:
+    """class used to store the attributes of each individual region"""
 
     def __init__(self):
-
-        self.cell_mask = None
-        self.perimeter_mask = None
-        self.septum_mask = None
-
-    def compute_cell_mask(self):
         pass
 
-    def compute_perimeter_mask(self):
-        pass
 
-    def compute_septum_mask(self):
-        pass
-
-class ImageCells:
+class ImageRegions:
+    """class used to store all the regions belonging to the image"""
 
     def __init__(self):
         pass
