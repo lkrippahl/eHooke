@@ -1,7 +1,6 @@
 """Main module of the software, used to run the program"""
 
-def main():
-    pass
+class EHooke:
 
-if __name__ == "main":
-    main()
+    def __init__(self):
+        pass
