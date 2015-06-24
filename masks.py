@@ -2,7 +2,7 @@
 
 from skimage.io import imsave, imread
 from skimage.util import img_as_float
-from skimage import exposure, color, morphology, filters
+from skimage import exposure, color, morphology, filter
 import numpy as np
 from scipy import ndimage
 
@@ -86,7 +86,7 @@ class Image:
         base_mask = np.copy(self.phase_image[x1:x2, y1:y2])
 
         if self.imageloaderparams.mask_algorithm == "Local Average":
-            base_mask = filters.threshold_adaptive(base_mask, self.imageloaderparams.mask_blocksize,
+            base_mask = filter.threshold_adaptive(base_mask, self.imageloaderparams.mask_blocksize,
                                                    offset=self.imageloaderparams.mask_offset)
         else:
             outs = base_mask > self.imageloaderparams.absolute_threshold
