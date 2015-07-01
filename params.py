@@ -6,9 +6,9 @@ import numpy as np
 class Parameters:
 
     def __init__(self):
-        self.imageloaderparams = ImageLoaderParameters()
-        self.imageprocessingparams = ImageProcessingParameters()
-        self.generatereportparams = GenerateReportParameters()
+        self.imageloaderparams = MaskParameters()
+        self.imageprocessingparams = RegionParameters()
+        self.generatereportparams = CellParameters()
 
     def load_parameters(self):
         pass
@@ -16,7 +16,7 @@ class Parameters:
     def save_parameters(self):
         pass
 
-class ImageLoaderParameters:
+class MaskParameters:
 
     def __init__(self):
 
@@ -47,12 +47,50 @@ class ImageLoaderParameters:
         self.phase_is_fluorescence = False  # if true then fluorescence is the image used for phase, without processing
 
 
-class ImageProcessingParameters:
+class RegionParameters:
 
     def __init__(self):
-        pass
 
-class GenerateReportParameters:
+        # cell identification parameters
+        self.identification_algorithms = ['Distance Peak', 'Feature Label']
+        self.identification_algorithm = 'Distance Peak'
+
+        # axis computation parameters
+        self.axis_algorithms = ['Box', 'Septum']
+        self.axis_algorithm = 'Box'
+        self.axial_step = 5         # angular step in degrees
+
+        # distance peak parameters
+        self.peak_min_distance = 10
+        self.peak_min_height = 5
+        self.peak_max_height = 20
+        self.peak_min_distance_from_edge = 30
+        self.max_peaks = 1000
+
+        # feature labelling parameters
+        self.outline_use_base_mask = False     # assign fixed height to all in base mask
+        self.outline_base_mask_depth = 5      # height to assign basemask
+
+class CellParameters:
 
     def __init__(self):
-        pass
+
+        # cell filtering criteria
+        self.cell_filters = [('Area', 150, 700), ('Neighbours', 0, 2)]
+        self.cells_forced = []
+        self.cells_excluded = []
+
+        # cell merging parameters
+        self.cell_force_merge_below = 0
+        self.merge_dividing_cells = True
+        self.merge_length_tolerance = 1.1
+        self.merge_min_interface = 15
+
+        # cell mask for brightness
+        self.inner_mask_thickness = 5
+
+        # margin for local baseline
+        self.baseline_margin = 30
+
+        # display
+        self.cell_colors = 10
