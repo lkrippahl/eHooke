@@ -1,4 +1,7 @@
-"""Module used to store the images and the different masks"""
+"""Module used to store the images and the different masks
+   IMPORTANT: mask convention is that regions of interest (e.g. cells) are marked with 1 and
+   background is 0. If phase images have black cells in light background the mask must be inverted
+"""
 
 from skimage.io import imsave, imread
 from skimage.util import img_as_float
@@ -6,11 +9,18 @@ from skimage import exposure, color, morphology, filter
 import numpy as np
 from scipy import ndimage
 
-from params import Parameters  # remove after testing
+from params import MaskParameters  # remove after testing
 
 
 class Image:
-    """Class used to store the phase and fluorescence images and the different masks needed"""
+    """A fluorescence microscopy frame
+    Loads exactly one fluorescence microscopy image and, optionally, one phase contrast image
+    Also manages the masks for defining the cell regions
+    Masks are binary images representing regions of interest of a parent image
+    CONVENTIONS: foreground is assumed to be darker than background and set to value 1
+    If otherwise set the invert mask parameter to True.
+    The mask class stores a reference to the parent image but does not copy it
+    """
 
     def __init__(self, parameters):
 
@@ -24,6 +34,8 @@ class Image:
         self.cells = []  # used to store the cells objects created by the imageprocessing module
 
     def clear_all(self):
+        """Clears every object that this class has created"""
+
         self.phase_image = None
         self.base_mask = None
         self.phase_mask = None
@@ -79,15 +91,16 @@ class Image:
         imsave(filename, image_to_save)
 
     def compute_base_mask(self):
-        """creates the base mask for the phase image without hole filling or closing
-        background is white, cells are black"""
+        """Creates the base mask for the phase image
+        image is the original image, set in self.phase_image
+        """
 
         x1, y1, x2, y2 = self.clip
         base_mask = np.copy(self.phase_image[x1:x2, y1:y2])
 
         if self.imageloaderparams.mask_algorithm == "Local Average":
             base_mask = filter.threshold_adaptive(base_mask, self.imageloaderparams.mask_blocksize,
-                                                   offset=self.imageloaderparams.mask_offset)
+                                                  offset=self.imageloaderparams.mask_offset)
         else:
             outs = base_mask > self.imageloaderparams.absolute_threshold
             ins = base_mask < self.imageloaderparams.absolute_threshold
@@ -97,8 +110,9 @@ class Image:
         self.base_mask = base_mask
 
     def compute_phase_mask(self):
-        """computes the phase_mask using the base mask
-        computes the edges using the clipping region and the parameters"""
+        """computes the phase mask
+           the phase mask is computed from a given base mask
+        """
 
         self.compute_base_mask()
         phase_mask = self.base_mask
@@ -116,3 +130,30 @@ class Image:
             phase_mask = morphology.erosion(phase_mask, np.ones((3, 3)))
 
         self.phase_mask = img_as_float(phase_mask)
+
+    def invert_mask(self):
+        """the mask is 0 on dark regions and 1 on light regions.
+           If the background is light and we want to use 1 to set the ROI, then the mask must be inverted
+        """
+
+        self.phase_mask = 1.0 - self.phase_mask
+
+    def overlay(self, mask="base", image="phase"):
+        """overlays a mask with an image
+           The mask can be 'base' or 'phase'
+           The image can be 'fluor' or 'phase'
+        """
+
+        if mask == 'base':
+            amask = self.base_mask
+        else:
+            amask = self.phase_mask
+
+        if image == 'phase':
+            aimage = self.phase_image
+        else:
+            aimage = self.fluor_image
+
+        if amask is not None and aimage is not None:
+            x1, y1, x2, y2 = self.clip
+            return amask.mask * aimage[x1:x2, y1:y2]
