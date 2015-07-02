@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="style.css">    
+  </head>
+  <body>
+
+<div id="wrap">
+
+<div id="header">
+eHooke</div>
+
+<div id="sidebar">
+<p class="sidetitle">Pages</p>
+<p class="sideline"><a class="sidebar" href="session?ID=[SESSIONID]">Files</a></p>
+<p class="sideline"><a class="sidebar" href="mask?ID=[SESSIONID]">Mask</p>
+<p class="sideline"><a class="sidebar" href="segment?ID=[SESSIONID]">Segmentation</a></p>
+</div>
+
+<div class="main">
+  
+<h1>Session: [SESSIONNAME]</h1>
+<p/>
+<h3>Mask computation</h3>
+<p/>  
+<div class="item">
+<img src="maskimage?ID=[SESSIONID]" style="display: none;" id="zoomimage" />  
+<p><h2>Current mask</h2></p>
+<canvas style="image-rendering: pixelated" id="zoomcanvas" width="900" height = "600"></canvas>
+<script type="text/javascript" src="image.js"></script>  
+</div>
+
+<div class="item">
+<h2>Mask parameters</h2>
+<div>
+[FORM]
+</div>
+</div>
+
+</div>
+
+<div id="footer">
+<p>eHooke on GitHub: <a href="https://github.com/lkrippahl/eHooke">github.com/lkrippahl/eHooke</a></p>
+</div>
+  </body>
+</html>

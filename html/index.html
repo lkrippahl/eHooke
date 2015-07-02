@@ -10,9 +10,17 @@
   <body>
 		
   <h1>Welcome to eHooke</h1>
-  <p/>
-  <a href="newsession">Click here to start new session</a>
+  <p/>  
+  <form method="post" action="newsession" name="submit" enctype="application/x-www-form-urlencoded">
+  <h2>New session:</h2>
+  <p>Session name:</p>
+  <input type="text" name="session_name"><br /><br />
+  <p>Description:</p>
+  <textarea name="session_description" rows="10" cols="50"></textarea></p>
+  <input type="submit" name="submit" value="Submit">
+</form>
 
+  
 		
   </body>
 </html>

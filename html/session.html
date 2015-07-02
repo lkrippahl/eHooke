@@ -4,14 +4,65 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>title</title>
-    <link rel="stylesheet" type="text/css" href="[HTML]style.css">
-    <script type="text/javascript" src="[HTML]script.js"></script>
-  </head>
+    <link rel="stylesheet" type="text/css" href="style.css">  
+	</head>
   <body>
-	
-<h1>Session Page</h1>
-<h2>Session id:[SESSIONID]</h2>
 
-<p><a href="upload?ID=[SESSIONID]">Upload a file</a>
+<div id="wrap">
+
+<div id="header">
+eHooke</div>
+
+<div id="sidebar">
+<p class="sidetitle">Pages</p>
+<p class="sideline"><!--<a class="sidebar" href="session?ID=[SESSIONID]">-->Files<!--</a>--></p>
+
+<p class="sideline"><a class="sidebar" href="mask?ID=[SESSIONID]">Mask</a></p>
+
+<p class="sideline"><a class="sidebar" href="segment?ID=[SESSIONID]">Segmentation</a></p>
+
+</div>
+
+<div class="main">
+  
+<h1>Session: [SESSIONNAME]</h1>
+<p/>
+<h3>Session id:[SESSIONID]</h3>
+<p/>
+  <div class="item">
+  <h2>Description:</h2>
+  <p/>
+  <pre>
+    [SESSIONDESC]
+  </pre>
+</div>
+<div class="item">
+<h2>File Upload</h2>
+<form method="post" action="upphase?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
+  <p>Phase file: [PHASEFILE]</p>
+  <input type="file" name="fileField"><br /><br />
+  <input type="submit" name="submit" value="Submit">
+</form>
+
+<form method="post" action="upfluor?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
+  <p>Fluorescence file: [FLUORFILE]</p>
+  <input type="file" name="fileField"><br /><br />
+  <input type="submit" name="submit" value="Submit">
+</form>
+
+<form method="post" action="upparams?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
+  <p>Parameters file: [PARAMSFILE]</p>
+  <input type="file" name="fileField"><br /><br />
+  <input type="submit" name="submit" value="Submit">
+</form>
+</div>
+
+</div>
+
+<div id="footer">
+<p>eHooke on GitHub: <a href="https://github.com/lkrippahl/eHooke">github.com/lkrippahl/eHooke</a></p>
+</div>
+
+
   </body>
 </html>
