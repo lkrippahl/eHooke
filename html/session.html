@@ -37,24 +37,17 @@ eHooke</div>
   </pre>
 </div>
 <div class="item">
-<h2>File Upload</h2>
-<form method="post" action="upphase?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
-  <p>Phase file: [PHASEFILE]</p>
-  <input type="file" name="fileField"><br /><br />
+<h2>Upload data:</h2>
+<p>Upload a .zip archive containing all the images.</p>
+<p>Optionally, include a masks.txt file listing all value images and corresponding masks</p>
+<p>Optionally, include a params.txt file with valid eHooke parameters.</p>
+<p>Do not include any other files in the zip archive</p>
+<p/>	
+<form method="post" action="updata?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">  
+  <input type="file" name="fileField" multiple ><br /><br />
   <input type="submit" name="submit" value="Submit">
 </form>
 
-<form method="post" action="upfluor?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
-  <p>Fluorescence file: [FLUORFILE]</p>
-  <input type="file" name="fileField"><br /><br />
-  <input type="submit" name="submit" value="Submit">
-</form>
-
-<form method="post" action="upparams?ID=[SESSIONID]" name="submit" enctype="multipart/form-data">
-  <p>Parameters file: [PARAMSFILE]</p>
-  <input type="file" name="fileField"><br /><br />
-  <input type="submit" name="submit" value="Submit">
-</form>
 </div>
 
 </div>

@@ -1,0 +1,1 @@
+This is the folder where eHooke creates the session folders.

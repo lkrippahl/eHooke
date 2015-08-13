@@ -4,7 +4,19 @@ import numpy as np
 import ConfigParser as cp
 
 
-class MaskParameters:
+class BaseParameters(object):
+    """Base class for specific parameters"""
+    exported = []
+    """List of tuples with names and labels of attributes that are to be
+       exported to the user"""
+
+    def __init__(self):
+        self.last_change = 0
+        """Integer value keeping track of last parameter changes to help
+           determine what needs to be recomputed"""
+        
+
+class MaskParameters(BaseParameters):
     """Stores, loads and saves parameters for generating masks
     Also generates a default set of parameters"""
 
@@ -22,6 +34,7 @@ class MaskParameters:
 
     
     def __init__(self):
+        super(MaskParameters, self ).__init__()
         self.algorithms = ['Local Average', 'Absolute']
         """list of acceptable algorithms for mask generation"""
         #FIXME: perhaps this should be a class attribute <LK 2015-2-7>
@@ -76,75 +89,86 @@ class MaskParameters:
         parser.set(section, 'mask_dilation', self.dilation)
         parser.set(section, 'mask_invert', self.invert)
 
-
-
-
-
-
-class FluorFrameParameters:
-    """Stores parameters for the fluorescence microscropy frame
-
-    A FluorFrame contains exactly one fluorescence microscopy image and
-    possibly a phase contrast image outlining the cells. The FluorFrameParameters
-    class stores the parameters for the FluorFrame class
+        
+class BaselineParameters(BaseParameters):
+    """Parameters for computing value image baseline
+       Used for cell statistics
     """
 
     def __init__(self):
-
-        # phase image parameters
-        self.phase_file = None
-        """str: phase file, including path
-                if there is no phase file, then fluor_file will be used for phase
-        """
-                                
-        self.phase_border = 10
-        """int: margin removed from phase, at least as much as align_margin parameter if phase is used"""
-
-        self.invert_phase = False
-        """bool: if true, phase will be inverted. Useful when using fluorescence or light on dark background"""
-        
-        # fluorescence image parameters
-        self.fluor_file = None
-        """str: fluorescence file, including path"""
-
-        self.align_margin = 10
-        """int: margin for aligning with phase if phase is used.
-                is overriden by phase_border if phase_border is smaller
-        """
+        super(BaselineParameters, self ).__init__()
         self.baseline_margin = 20
         """int: number of pixels away from mask where fluorescence baseline is computed"""
+   
 
+class FrameParameters(BaseParameters):
+    """Stores parameters for the image frames
+
+    These are parameters that, if changed, require reloading all images and recomputing from zero
+    """
+
+    def __init__(self):
+        super(FrameParameters, self ).__init__()
+        
+        # mask image parameters
+        self.invert_mask_image = False
+        """bool: if true, mask image will be inverted.
+                 Useful when using value as mask or light on dark background"""
+        
+        # value image parameters
+        self.clipping_margin = 10
+        """int: margin removed from images, at least as much as align_margin parameter if phase is used"""        
+
+        self.align_margin = 10
+        """int: margin for aligning with mask image if a mask image is used.
+                is overriden by clipping_margin if clipping_margin is smaller
+        """
+        
+        self.preprocess = False
+        """Boolean: if true, do preprocessing"""
+        
     def load_from_parser(self,parser,section):
         """Loads frame parameters from a ConfigParser object of the configuration file
            The section parameters specifies the configuration file section
         """
-
-        self.phase_file  = parser.get(section, 'phase_file')
-        self.phase_border = parser.getint(section, 'phase_border')        
-        self.invert_phase = parser.getboolean(section, 'invert_phase')
-        self.fluor_file = parser.get(section, 'fluor_file')
+                
+        self.clipping_margin = parser.getint(section, 'clipping_margin')        
+        self.invert_mask_image = parser.getboolean(section, 'invert_mask_image')
         self.align_margin = parser.getint(section, 'align_margin')
-        self.baseline_margin = parser.getint(section, 'baseline_margin')
+        self.preprocess = parser.getboolean(section, 'preprocess')
+        
         
     def save_to_parser(self,parser,section):
-        """Saves mask parameters to a ConfigParser object of the configuration file
+        """Saves frame parameters to a ConfigParser object of the configuration file
            It creates the section if it does not exist.
         """
         if section not in parser.sections():
             parser.add_section(section)
-        parser.set(section, 'phase_file', self.phase_file)
         parser.set(section, 'invert_phase', self.invert_phase)
-        parser.set(section, 'phase_border', self.phase_border)
-        parser.set(section, 'fluor_file', self.fluor_file)
+        parser.set(section, 'clipping_margin', self.phase_border)
         parser.set(section, 'align_margin', self.align_margin)
-        parser.set(section, 'baseline_margin', self.baseline_margin)
+        parser.set(section, 'preprocess', self.preprocess)        
       
+
+class SegmentationParameters(BaseParameters):
+
+    def __init__(self):
+        super(SegmentationParameters, self ).__init__()
+        
+       
+
+class ReportParameters(BaseParameters):
+
+    def __init__(self):
+        super(ReportParameters, self ).__init__()
+        
+
     
 class Parameters:
 
     def __init__(self):
         self.mask_params = MaskParameters()
-        self.fluor_frame_params = FluorFrameParameters()
+        self.frame_params = FrameParameters()
         # TODO implement the other parameters
         # <LK 2015-06-27>        
         #self.imageprocessingparams = ImageProcessingParameters()
@@ -156,7 +180,7 @@ class Parameters:
         parser = cp.ConfigParser()
         parser.read(filename)
         self.mask_params.load_from_parser(parser,'Mask')
-        self.fluor_frame_params.load_from_parser(parser,'Frame')
+        self.frame_params.load_from_parser(parser,'Frame')
         # TODO implement loading for the other parameters
         # <LK 2015-06-27>
         
@@ -166,20 +190,11 @@ class Parameters:
         
         parser = cp.ConfigParser()
         self.mask_params.save_to_parser(parser,'Mask')
-        self.fluor_frame_params.save_to_parser(parser,'Frame')
+        self.frame_params.save_to_parser(parser,'Frame')
         # TODO implement loading for the other parameters
         # <LK 2015-06-27>
         cfgfile = open(filename,'w')
         parser.write(cfgfile)
         cfgfile.close()
-        
-      
-class ImageProcessingParameters:
 
-    def __init__(self):
-        pass
-
-class GenerateReportParameters:
-
-    def __init__(self):
-        pass
+    

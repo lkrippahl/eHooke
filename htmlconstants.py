@@ -17,10 +17,8 @@ SESSION_NAME_TAG='[SESSIONNAME]'
 """str: id tag to be replaced by session name in html source"""
 SESSION_DESC_TAG='[SESSIONDESC]'
 """str: id tag to be replaced by session description in html source"""
-FLUOR_TAG = '[FLUORFILE]'
-"""str: id tag to be replaced by fluorescence file name in html source"""
-PHASE_TAG = '[PHASEFILE]'
-"""str: id tag to be replaced by phase file name in html source"""
+IMAGES_TAG = '[IMAGES]'
+"""str: id tag to be replaced by value and mask image file names"""
 PARAMS_TAG = '[PARAMSFILE]'
 """str: id tag to be replaced by parameters file name in html source"""
 FORM_TAG = '[FORM]'
@@ -59,14 +57,8 @@ HTML_INDEX=HTML_FOLDER+'index.html'
 
 URL_START = '/start'
 """str: url for starting ehooke"""
-URL_UPPHASE = '/upphase'
-"""str: url for uploading phase image (POST)"""
-URL_UPFLUOR = '/upfluor'
-"""str: url for uploading fluorescence image (POST)"""
-URL_UPPARAMS = '/upparams'
-"""str: url for uploading parameters file (POST)"""
-URLS_UPLOAD = [URL_UPPHASE, URL_UPFLUOR, URL_UPPARAMS]
-"""list: urls for uploading"""
+URL_UPDATA = '/updata'
+"""str: url for uploading data zip file (POST)"""
 URL_MASK_PARAMETERS = '/maskparameters'
 """str: url for updating mask parameters from form(POST)"""
 
