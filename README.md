@@ -48,7 +48,7 @@ libraries: numpy, scipy, matplotlib, scikit-image
 ******                    Authors                    ******
 
       Ludwig Krippahl                Bruno Saraiva
-     GitHib:lkrippahl             GitHib:brunomsaraiva
+     GitHub:lkrippahl             GitHub:brunomsaraiva
 
 ***********************************************************
 
